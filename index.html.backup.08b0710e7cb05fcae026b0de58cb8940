@@ -1,0 +1,112 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="generator" content="Hostinger Horizons" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Eminent Aura 4u - Advanced Technology Solutions by Muhammad Sharjeel" />
+    <title>Eminent Aura 4u - Technology & Innovation</title>
+    <script type="module" crossorigin src="/assets/index-6752605f.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-8fcd7243.js">
+    <link rel="modulepreload" crossorigin href="/assets/ui-ad96f1e5.js">
+    <link rel="modulepreload" crossorigin href="/assets/animations-26e8d1b0.js">
+    <link rel="stylesheet" href="/assets/index-7c3148b6.css">
+    <script type="module">
+window.onerror = (message, source, lineno, colno, errorObj) => {
+  window.parent.postMessage({
+    type: 'horizons-runtime-error',
+    message,
+    source,
+    lineno,
+    colno,
+    error: errorObj && errorObj.stack
+  }, '*');
+};
+</script>
+    <script type="module">
+const observer = new MutationObserver((mutations) => {
+  for (const mutation of mutations) {
+    for (const addedNode of mutation.addedNodes) {
+      if (
+        addedNode.nodeType === Node.ELEMENT_NODE &&
+        (
+          addedNode.tagName?.toLowerCase() === 'vite-error-overlay' ||
+          addedNode.classList?.contains('backdrop')
+        )
+      ) {
+        handleViteOverlay(addedNode);
+      }
+    }
+  }
+});
+
+observer.observe(document.documentElement, {
+  childList: true,
+  subtree: true
+});
+
+function handleViteOverlay(node) {
+  if (!node.shadowRoot) {
+    return;
+  }
+
+  const backdrop = node.shadowRoot.querySelector('.backdrop');
+
+  if (backdrop) {
+    const overlayHtml = backdrop.outerHTML;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(overlayHtml, 'text/html');
+    const messageBodyElement = doc.querySelector('.message-body');
+    const fileElement = doc.querySelector('.file');
+    const messageText = messageBodyElement ? messageBodyElement.textContent.trim() : '';
+    const fileText = fileElement ? fileElement.textContent.trim() : '';
+    const error = messageText + (fileText ? ' File:' + fileText : '');
+
+    window.parent.postMessage({
+      type: 'horizons-vite-error',
+      error,
+    }, '*');
+  }
+}
+</script>
+    <script type="module">
+const originalConsoleError = console.error;
+console.error = function(...args) {
+  originalConsoleError.apply(console, args);
+
+  const errorString = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : String(arg)).join(' ').toLowerCase();
+
+  window.parent.postMessage({
+    type: 'horizons-console-error',
+    error: errorString
+  }, '*');
+};
+</script>
+    <script type="module">
+const originalFetch = window.fetch;
+
+window.fetch = async function(...args) {
+  return originalFetch.apply(this, args)
+    .then(async response => {
+      if(!response.ok) {
+        const errorFromRes = await response.text();
+        console.error(errorFromRes);
+      }
+
+      return response;
+    })
+    .catch(error => {
+      console.error(error);
+
+    throw error;
+  });
+};
+</script>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+  </body>
+</html>
